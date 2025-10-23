@@ -52,8 +52,7 @@ This backend service includes features like **product catalog management**, **us
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone <your-repository-url>
-cd ecommerce-api
+git clone https://github.com/brundhaa-sri/E-commerce-api.git
 ````
 
 ### 2️⃣ Install Dependencies
@@ -74,8 +73,8 @@ PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/ecommerce_db
 
 # JWT Configuration
-JWT_SECRET=your_super_secret_key
-JWT_REFRESH_SECRET=your_super_secret_refresh_key
+JWT_SECRET=jwt_secret
+JWT_REFRESH_SECRET=jwt_refresh_secret
 JWT_EXPIRES_IN=15m
 JWT_REFRESH_EXPIRES_IN=7d
 ```
@@ -395,8 +394,8 @@ index.js
 
 ## 🧑‍💻 Author
 
-**Your Name**
-📧 [your.email@example.com](mailto:your.email@example.com)
-💼 [GitHub](https://github.com/yourusername)
+**Brundhaa Sri**
+📧 [achyuthan23@gmail.com](mailto:achyuthan23@gmail.com)
+💼 [GitHub](https://github.com/brundhaa-sri)
 
 ---
