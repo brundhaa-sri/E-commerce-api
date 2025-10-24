@@ -1,0 +1,97 @@
+{
+	"info": {
+		"name": "E-Commerce API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 Created\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response has success message\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData.message).to.eql(\"User registered successfully\");",
+									"    pm.expect(responseData.userId).to.be.a('string');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Test\",\n    \"lastName\": \"User\",\n    \"email\": \"testuser@example.com\",\n    \"password\": \"password123\",\n    \"role\": \"customer\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/register",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "register"]
+						},
+						"description": "Registers a new user. The email must be unique."
+					}
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 OK\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contains tokens and user info\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData).to.have.property('accessToken');",
+									"    pm.expect(responseData).to.have.property('userId');",
+									"    pm.expect(responseData).to.have.property('email');",
+									"});",
+									"",
+									"const responseData = pm.response.json();",
+									"if (responseData.accessToken) pm.environment.set(\"accessToken\", responseData.accessToken);",
+									"if (responseData.userId) pm.environment.set(\"userId\", responseData.userId);",
+									"const refreshToken = pm.cookies.get('refreshToken');",
+									"if (refreshToken) pm.environment.set(\"refreshToken\", refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"customer@example.com\",\n    \"password\": \"password123\"\n}",
+							"options": { "raw": { "language": "json" } }
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": ["{{baseURL}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:5000/api"
+		}
+	]
+}
